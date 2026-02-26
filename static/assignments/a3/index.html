@@ -1,0 +1,128 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<title>Vis &amp; Society Assignment 3</title>
+	<link rel="stylesheet" href="../report.css" />
+</head>
+
+<body>
+	<header>
+		<h1>
+			<small>Assignment 3</small>
+			Visualization Critique &amp; Redesign
+		</h1>
+
+		<p>
+			<strong>Sri Saraf</strong> — <em>srisaraf@mit.edu</em>
+		</p>
+	</header>
+
+	<main>
+		<section>
+			<h2>Reading &amp; Critique</h2>
+
+			<figure>
+				<img src="images/covid-spiral.png" alt="NYT COVID-19 spiral chart showing new U.S. cases from 2020 through early 2022" />
+			</figure>
+
+			<p>
+				Insights about the data/visualization:
+			</p>
+
+			<ul>
+				<li>The Omicron wave (January 2022) is so dramatically larger than every prior surge that it physically breaks out of the circular frame — the spiral's outer arm launches upward off the chart, signaling a qualitative change in scale, not merely a quantitative one.</li>
+				<li>Major surges consistently cluster around the top of the spiral (January), revealing a clear winter seasonality: the U.S. experienced significant spikes in January 2021 and January 2022, suggesting cold-weather indoor transmission as a recurring driver.</li>
+				<li>The Delta variant (summer–fall 2021) produced a notable bulge between July and October — unusual because it bucks the seasonal winter pattern, pointing to Delta's distinctly higher transmissibility compared to earlier strains.</li>
+				<li>The innermost ring (2020) is almost imperceptibly thin relative to 2021 and 2022, partly reflecting limited early testing capacity suppressing reported case counts, and partly the genuine ramp-up period before widespread community spread.</li>
+				<li>The shaded band around the 7-day average widens substantially during the Omicron spike, indicating extremely high day-to-day variance in reported cases — likely a combination of reporting delays over holidays and the sheer speed of Omicron's spread.</li>
+			</ul>
+
+			<p>
+				Design Critique:
+			</p>
+
+			<p>
+				The spiral chart is a genuinely striking piece of visual rhetoric. Its circular form maps elegantly onto the cyclical nature of seasonal disease spread, and the Omicron spike physically launching off the top of the frame is the kind of visceral, memorable moment that makes data journalism work. For the Times' general audience — people who absorb a chart's gestalt before reading it carefully — the central message lands instantly: something unprecedented just happened. The shaded confidence band around the 7-day average is also a thoughtful inclusion, adding statistical honesty about daily variance without overwhelming non-expert readers. And the choice to label only the cardinal directions (Jan, Apr, Jul, Oct) keeps the design clean and avoids cluttering a non-standard coordinate system.
+			</p>
+
+			<p>
+				That said, the visualization sacrifices quantitative precision for aesthetic impact in ways that matter. Radial distance is a perceptually weak encoding channel: research consistently shows that people are far less accurate judging lengths radiating from a center point than positions along a shared baseline. As a result, it is nearly impossible to accurately gauge whether, say, the Delta wave was twice or four times larger than the initial 2020 surge. The concentric rings of different years also overlap spatially, which visually suppresses the inner rings (2020, early 2021) — a real problem when the article's thesis depends on comparing across all three years. For a general audience already unfamiliar with polar coordinates, the reading path is unclear: where do you start, which direction do you read, and how do you map the spiral arm back to a calendar date? There are also no y-axis tick marks or quantitative scale labels, so a reader cannot extract an actual case count from the chart. These limitations collectively make the visualization powerful as a rhetorical object but limited as an analytical tool — appropriate for an opinion piece, but worth redesigning for audiences who need to reason carefully about the data.
+			</p>
+		</section>
+
+		<section>
+			<h2>Visualization Sketches</h2>
+
+			<figure>
+				<img src="images/sketch1.png" alt="Annotated linear timeline of COVID-19 cases with variant wave labels" />
+				<figcaption>
+					Sketch 1: Annotated linear area chart. Time runs left-to-right on a standard Cartesian axis; case counts on a linear y-axis. Named variant waves are annotated directly on the chart at their peaks.
+				</figcaption>
+			</figure>
+
+			<p>
+				Design Rationale for Sketch 1:
+			</p>
+
+			<p>
+				The primary motivation was to fix the radial encoding weakness. Position along a y-axis is one of the most perceptually accurate channels available, allowing readers to directly compare wave magnitudes — something the spiral makes nearly impossible. Annotating wave names (Alpha/Spring 2020, Winter Surge, Delta, Omicron) directly at their peaks eliminates the need for a separate legend and guides readers through the narrative arc of the pandemic without requiring them to already know the variant timeline. The main thing this sketch loses is the spiral's sense of cyclical, year-over-year time. On a linear axis, the "same month, different year" comparison requires the reader to mentally locate and align points rather than reading them off adjacent rings. This led me to explore small multiples as a next step.
+			</p>
+
+			<figure>
+				<img src="images/sketch2.png" alt="Small multiples: one panel per year with months on x-axis, shared y-scale" />
+				<figcaption>
+					Sketch 2: Small multiples by year. Three panels side-by-side (2020, 2021, 2022), each with months on the x-axis and a shared y-scale. Allows direct seasonal comparison across years at a glance.
+				</figcaption>
+			</figure>
+
+			<p>
+				Design Rationale for Sketch 2:
+			</p>
+
+			<p>
+				Small multiples recover the seasonal comparison the spiral does well: by aligning all three panels on the same month-based x-axis and the same y-scale, a reader can immediately see that January surges dominate 2021 and 2022, while 2020 looks relatively flat except for a late-year rise. Using a shared y-scale across panels (rather than each panel auto-scaling) is critical — without it, 2020 would look proportionally tall when it was actually tiny, and the whole comparative message would collapse. The limitation here is that continuity across years is broken: the wave that started in November 2020 and peaked in January 2021 gets split across two panels, obscuring its full shape. A reader also has to move their eyes across three separate frames rather than following one continuous line. This led me to try a calendar heatmap as a third direction.
+			</p>
+
+			<figure>
+				<img src="images/sketch3.png" alt="Calendar heatmap: rows = years, columns = months, color = average daily cases" />
+				<figcaption>
+					Sketch 3: Calendar heatmap. Rows = years (2020, 2021, 2022), columns = months. Color saturation encodes average daily new cases per month, from pale pink (low) to deep red (high).
+				</figcaption>
+			</figure>
+
+			<p>
+				Design Rationale for Sketch 3:
+			</p>
+
+			<p>
+				The heatmap is the most compact way to show both year-over-year and seasonal patterns simultaneously: a single glance reveals that January columns are consistently the darkest, and that 2022 January is so extreme it reads as nearly black against the rest of the grid. The row/column structure makes the "same month, different year" comparison trivial — the reader just looks up and down a column rather than mentally aligning spiral rings or separate panels. The key weakness is that color is a weaker quantitative channel than position, so readers can see that Omicron is much worse but cannot accurately judge how much worse. Within-month variation is also completely lost — the heatmap shows monthly averages, hiding the sharp rise and fall curve of each wave. For my final design, I decided to return to the annotated line chart from Sketch 1 but incorporate the direct labeling and annotation style that made the heatmap immediately readable.
+			</p>
+		</section>
+
+		<section>
+			<h2>Final Visualization Design</h2>
+
+			<figure>
+				<img src="images/final.png" alt="Annotated area chart of U.S. COVID-19 7-day average new cases with variant wave labels and Delta reference line" />
+				<figcaption>
+					Final design: annotated area chart of U.S. COVID-19 new cases (7-day average, thousands), March 2020 – February 2022. Variant waves are labeled directly at their peaks; a dashed reference line at Delta's peak anchors the Omicron comparison. Source: Google COVID-19 Open Data.
+				</figcaption>
+			</figure>
+
+		</section>
+
+		<section>
+			<h2>Final Writeup</h2>
+
+			<p>
+				The central message I wanted to communicate is: Omicron was not just another wave — it was categorically different in scale from everything that came before it. To make this legible, I needed an encoding that enables direct, accurate magnitude comparison across all waves. I chose a linear y-axis with position as the primary channel, which is among the most perceptually accurate encodings available. The area fill (rather than a bare line) makes the cumulative "weight" of each wave visually present — the mass of the filled region conveys burden, not just peak height. I used a desaturated red palette to stay visually connected to the danger/urgency register of the original while avoiding the garish quality of pure red. Variant wave labels are placed directly on the chart at their peaks, eliminating any legend lookup and guiding readers through the narrative arc of the pandemic. A dashed horizontal reference line at Delta's peak gives a concrete visual anchor: readers can see at a glance that Omicron's peak is roughly 5× higher than Delta's, something the spiral chart made nearly impossible to quantify. The x-axis marks quarterly season boundaries (Jan/Apr/Jul/Oct) to preserve some sense of seasonal rhythm. I kept the annotation text spare — just the wave name and year — to avoid cluttering a chart that already carries significant information density.
+			</p>
+
+			<p>
+				My main critiques of the original were: (1) weak radial encoding making magnitude comparison unreliable, (2) no quantitative y-axis scale, (3) earlier waves visually suppressed by overlapping rings, and (4) an unclear reading path for general audiences. The final design addresses all four directly: position on a y-axis is a strong perceptual channel, tick labels give readable case counts, all years share the same baseline and are equally visible, and the reading direction is unambiguously left-to-right with labeled waypoints. What I could not fully resolve is the original's most powerful quality: the visceral, almost kinesthetic feeling of a pandemic spiraling outward and finally escaping the frame. The Omicron spike physically leaving the chart is more emotionally resonant than a tall peak on a line chart. This points to a real design tension — precision and emotional impact often pull in opposite directions. For a news opinion piece aimed at general readers (which this was), the spiral's emotional punch may be the right tradeoff. For a policy report or epidemiological analysis where readers need to reason carefully about scale, my redesign would be more appropriate. I also found during this process that the small multiples sketch (Sketch 2) would likely be the strongest design for an audience specifically interested in seasonal comparison year-over-year, even though it loses wave continuity — a tradeoff I would revisit if the intended takeaway shifted from "Omicron was unprecedented" to "COVID is a winter disease."
+			</p>
+		</section>
+	</main>
+</body>
+</html>
+

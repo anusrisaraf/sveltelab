@@ -1,18 +1,17 @@
 <nav>
-  <ul>
-      <li><a href=".">Home</a></li>
-      <li><a href="projects">Projects</a></li>
-      <li><a href="contact">Contact</a></li>
-      <li><a class="current" href="resume">Resume</a></li>
-      <li><a href="https://github.com/anusrisaraf" target="_blank">GitHub</a></li>
-  </ul>
+    <a href="..">Home</a>
+    <a href="../projects">Projects</a>
+    <a href="../contact">Contact</a>
+    <a class="current" href="resume">Resume</a>
+    <a href="https://github.com/anusrisaraf" target="_blank">GitHub</a>
 </nav>
 
-<section id="resume">
-  <h2>Resume</h2>
-  <p><a href="Sri_Saraf_Resume.pdf" download>Download Resume (PDF)</a></p>
+<div class="page-inner">
+  <section id="resume">
+    <h2>Resume</h2>
+    <p><a href="Sri_Saraf_Resume.pdf" download>Download Resume (PDF)</a></p>
 
-  <article>
+    <article>
       <header>
           <h3>Sri Saraf</h3>
           <p>Computer Science &amp; Artificial Intelligence, Business Analytics, Mathematics, and Music</p>
@@ -100,5 +99,6 @@
           Matplotlib, MATLAB, Git, Docker, React-query, React Testing Library, Unix Shell, Ghidra, Splunk, GDB</p>
       </section>
 
-  </article>
-</section>
+    </article>
+  </section>
+</div>

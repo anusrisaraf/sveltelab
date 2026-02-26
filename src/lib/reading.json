@@ -1,0 +1,18 @@
+[
+  {
+    "title": "East of Eden",
+    "author": "John Steinbeck",
+    "image": "/images/east-of-eden.jpg"
+  },
+  {
+    "title": "A Short Stay in Hell",
+    "author": "Steven L. Peck",
+    "image": "/images/a-short-stay-in-hell.jpg"
+  },
+  {
+    "title": "Origin",
+    "author": "Dan Brown",
+    "image": "/images/origin.jpg"
+  }
+]
+

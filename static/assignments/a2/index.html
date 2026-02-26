@@ -1,0 +1,110 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<title>Vis & Society Assignment 2</title>
+	<link rel="stylesheet" href="../report.css" />
+</head>
+
+<body>
+	<header>
+		<h1>
+			<small>Assignment 2</small>
+			Exploratory Data Analysis
+		</h1>
+
+		<p>
+			<strong>Sri Saraf</strong> — <em>srisaraf@mit.edu</em>
+		</p>
+	</header>
+	<main>
+		<section>
+			<h2>Subtheme: Corporate Landlords & Evictions</h2>
+			<h3>Overall Analysis Questions</h3>
+			<ol>
+				<li>
+					<strong>How have corporate ownership and owner occupancy rates changed across Boston over time?</strong>
+					<br/>
+					Before looking at individual neighborhoods, I wanted to understand the broader trend and whether these two rates move together. The Homes for All MA report frames the rise of corporate landlords as a gradual structural shift, so I was curious whether the data would show a slow creep or a sharper inflection at some point.
+				</li>
+				<li>
+					<strong>Which neighborhoods have seen the greatest increases in corporate ownership, and do those same places show declining owner occupancy?</strong>
+					<br/>
+					The Homes for All MA report finds that live-in landlords tend to support more stable housing than absentee or corporate ones, which made me want to identify where corporate ownership is most concentrated. Certain neighborhoods also feel noticeably different than they did a few years ago, and I wanted to see whether the data reflects that.
+				</li>
+				<li>
+					<strong>Are communities of color disproportionately affected by the rise of corporate landlords in Boston?</strong>
+					<br/>
+					The Homes for All MA report and the NYT eviction piece both describe how Black and Latinx residents bear a disproportionate share of evictions, with corporate landlordism as part of that pattern. I wanted to test whether corporate ownership in Boston is actually concentrated in neighborhoods with larger communities of color, or whether some other factor like proximity to transit or development explains the distribution better.
+				</li>
+				<li>
+					<strong>Is there a relationship between housing vacancy and corporate ownership at the neighborhood level?</strong>
+					<br/>
+					The background readings raise the concern that corporate and absentee landlords treat properties as investment vehicles rather than housing, which can pull supply off the market. I wanted to see whether neighborhoods with higher corporate ownership actually show higher vacancy rates.
+				</li>
+			</ol>
+		</section>
+
+		<section>
+			<h2>Discoveries & Insights</h2>
+
+			<figure>
+				<img src="images/fig1_heatmap.png" alt="Heatmap of corporate ownership rate by neighborhood and year, 2004-2024" />
+				<figcaption>
+					I started with a heatmap to get a sense of how corporate ownership has evolved across all 21 neighborhoods at once. Sorting rows by 2024 rate immediately reveals how universal the trend is, since nearly every neighborhood darkens from left to right, meaning corporate ownership grew almost everywhere over the 20-year window. South Boston Waterfront stands out dramatically at the top, jumping from around 9% in 2004 to 41% by 2024, though this reflects the developer-driven new construction in Seaport, as opposed to corporations buying up existing homes. Hyde Park and West Roxbury at the bottom barely changed by comparison. One note about the data is that corporate ownership was determined by keyphrase matching on owner names (LLC, Trust, Realty, etc.), so there is some fuzziness in both directions.
+				</figcaption>
+			</figure>
+
+			<figure>
+				<img src="images/fig2_citywide_trends.png" alt="Line chart of city-wide average corporate ownership and owner occupancy rates, 2004-2024" />
+				<figcaption>
+					Aggregating to a city-wide average makes the inverse relationship between the two rates clear. Corporate ownership rose from about 5% in 2004 to over 20% by 2024, while owner occupancy fell from around 45% to 38%. What stood out to me was the timing: the rise in corporate ownership is relatively gradual through about 2012, then the slope steepens. Neither the financial crisis nor COVID-19 produced a visible reversal in either trend, which pushes back on the idea that corporate landlordism is a crisis-driven phenomenon. The shaded regions mark those two periods for reference.
+				</figcaption>
+			</figure>
+
+			<figure>
+				<img src="images/fig3_scatter_change.png" alt="Scatter plot of change in corporate ownership vs change in owner occupancy per neighborhood, 2004 to 2024" />
+				<figcaption>
+					To look at neighborhood-level change directly, I computed each neighborhood's shift in both rates from 2004 to 2024 and plotted them against each other. Every single neighborhood lands in the right half of the chart, meaning corporate ownership increased everywhere without exception. Most also land below the zero line on the y-axis, meaning owner occupancy declined in tandem. South Boston Waterfront is the obvious outlier at far right, since its corporate ownership grew the most, but its owner occupancy actually ticked up slightly, likely because of the volume of new condo development there. West End and Longwood show the steepest drops in owner occupancy, both areas adjacent to major medical institutions with high institutional investment pressure.
+				</figcaption>
+			</figure>
+
+			<figure>
+				<img src="images/fig4_lines_selected.png" alt="Line chart of corporate ownership rate over time for the four highest-change and three lowest-change neighborhoods" />
+				<figcaption>
+					Tracing individual trajectories over time reveals how different the pace of change has been. The four neighborhoods with the largest overall increase (solid lines) all accelerate noticeably after 2012 or so, with South Boston Waterfront, Fenway, and East Boston showing especially sharp growth post-2015. The three lowest-change neighborhoods (dashed lines) are all outer residential areas (Hyde Park, West Roxbury, and Mattapan) which grew slowly and stayed well below 20% throughout. The gap between these two groups suggests that geography and proximity to major development corridors is a significant factor in where corporate landlords are concentrating.
+				</figcaption>
+			</figure>
+
+			<figure>
+				<img src="images/fig5_race_scatter.png" alt="Three scatter plots showing percent Black, Hispanic, and White residents vs corporate ownership rate by neighborhood in 2024" />
+				<figcaption>
+					To address the question of whether communities of color are disproportionately targeted, I merged the 2020 Census demographic data with 2024 corporate ownership rates and plotted each racial group against corporate ownership. The results were more complicated than I expected. There is no strong positive association between % Black or % Hispanic residents and corporate ownership. Roxbury and Mattapan, with large Black populations, sit at moderate corporate ownership levels rather than extreme ones. The negative slope in the % White panel is largely an artifact of South Boston Waterfront, which is predominantly White but has the highest corporate ownership due to developer activity rather than racial targeting. This suggests corporate investment in Boston is currently driven more by land value and development opportunity than by neighborhood racial composition, though that does not mean communities of color are not bearing the consequences in other ways.
+				</figcaption>
+			</figure>
+
+			<figure>
+				<img src="images/fig6_vacancy_corp.png" alt="Bubble chart of housing vacancy rate vs corporate ownership rate by neighborhood, bubble size proportional to total population" />
+				<figcaption>
+					I also looked at whether corporate ownership is associated with higher housing vacancy, which would support the argument that corporate landlords pull units off the market. There is a positive association: neighborhoods with higher corporate ownership tend to have more vacant units. Downtown and Chinatown are high on both axes, though their vacancy partly reflects commercial mixed-use properties rather than purely residential dynamics. South Boston Waterfront has high corporate ownership but relatively moderate vacancy, consistent with active leasing of newly built units. The relationship is real but not straightforward, and separating causality would require more granular data than this dataset provides.
+				</figcaption>
+			</figure>
+
+
+			<figure>
+				<img src="images/fig7_bar_2024.png" alt="Horizontal bar chart of corporate ownership rate by neighborhood in 2024" />
+				<figcaption>After the heatmap showed the overall trend, I wanted a cleaner snapshot of where each neighborhood actually stands in 2024. Sorting by rate makes the spread visible: South Boston Waterfront is a clear outlier at 41%, nearly double the next highest neighborhoods. About a third of neighborhoods sit above the city-wide average (dashed line), concentrated in areas closer to the urban core and major development corridors. The outer residential neighborhoods cluster at the low end, all under 15%. This is useful context for interpreting the time series, since neighborhoods that look similar in the heatmap are actually quite far apart in absolute terms by 2024.</figcaption>
+			</figure>
+
+			<figure>
+				<img src="images/fig8_poc_lines.png" alt="Line chart of corporate ownership rate over time for Roxbury, Mattapan" />
+				<figcaption>The race scatter suggested that racial composition alone does not predict corporate ownership well, but Roxbury, Mattapan, East Boston, and Dorchester, all neighborhoods with large Black and Latinx populations, are worth looking at more closely. Plotting their trajectories against the city-wide average shows all four have been climbing steadily and are now at or above it. East Boston in particular has grown sharply since 2015. This does not establish that corporate investors are targeting these neighborhoods because of their demographics, but it does mean the communities most likely to bear the burden of corporate landlordism based on the eviction research are seeing real and sustained increases in corporate ownership.</figcaption>
+			</figure>
+
+		</section>
+
+		<section>
+			<h2>Summary</h2>
+
+			<p>Corporate ownership increased in every Boston neighborhood between 2004 and 2024, rising from roughly 5% city-wide to over 20%, while owner occupancy declined in parallel. The growth accelerated after 2012 and continued through COVID-19 without reversal, suggesting this is a structural trend rather than a crisis-driven one. South Boston Waterfront, Fenway, and East Boston saw the sharpest increases, reflecting their proximity to major development corridors, while outer neighborhoods like Hyde Park and West Roxbury remained comparatively stable. The scatter of 2004-to-2024 changes confirms the near-universal inverse relationship: as corporate ownership rises, owner occupancy tends to fall. The racial composition findings were less clear-cut than I expected. Geography and land value appear to be stronger predictors of corporate ownership than neighborhood demographics, though Roxbury, Mattapan, and East Boston have large communities of color and rising corporate ownership rates, which warrants closer attention. The vacancy analysis points to a positive association with corporate ownership, but causality is difficult to establish from this data alone. Ownership rates can indicate where corporations are buying, but not what happens to residents as a result.</p>
+
+		</section>
