@@ -1,19 +1,19 @@
 [
   {
     "title": "A2: Exploratory Data Analysis",
-    "image": "images/mt.png",
+    "image": "/images/mt.png",
     "description": "Assignment 2: exploratory data analysis of corporate landlords, evictions, and housing equity in Boston.",
     "url": "a2"
   },
   {
     "title": "A3: Visualization Critique & Redesign",
-    "image": "images/mt.png",
+    "image": "/images/mt.png",
     "description": "Assignment 3: critique, sketches, final visualization, and writeup.",
     "url": "a3"
   },
   {
     "title": "Lorem Ipsum Project",
-    "image": "images/mt.png",
+    "image": "/images/mt.png",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eget justo eget urna placerat tincidunt."
   }
 ]
