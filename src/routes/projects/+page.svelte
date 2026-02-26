@@ -2,12 +2,15 @@
   import projects from "$lib/projects.json";
   import Project from "$lib/Project.svelte";
 
-  // Adjust image paths for this page so they work from /projects
   const projectsForPage = projects.map((p) => ({
     ...p,
     image: "../" + p.image
   }));
 </script>
+
+<svelte:head>
+  <title>Projects — Sri Saraf</title>
+</svelte:head>
 
 <nav>
     <a href="..">Home</a>

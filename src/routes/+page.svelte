@@ -5,6 +5,10 @@
   import ReadingItem from "$lib/ReadingItem.svelte";
 </script>
 
+<svelte:head>
+  <title>Sri Saraf</title>
+</svelte:head>
+
 <nav>
     <a class="current" href=".">Home</a>
     <a href="projects">Projects</a>

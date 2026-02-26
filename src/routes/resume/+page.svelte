@@ -1,3 +1,7 @@
+<svelte:head>
+  <title>Resume — Sri Saraf</title>
+</svelte:head>
+
 <nav>
     <a href="..">Home</a>
     <a href="../projects">Projects</a>
