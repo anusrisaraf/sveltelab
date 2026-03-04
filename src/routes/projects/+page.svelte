@@ -11,14 +11,6 @@
 <svelte:head>
   <title>Projects — Sri Saraf</title>
 </svelte:head>
-
-<nav>
-    <a href="..">Home</a>
-    <a class="current" href="projects">Projects</a>
-    <a href="../contact">Contact</a>
-    <a href="../resume">Resume</a>
-    <a href="https://github.com/anusrisaraf" target="_blank">GitHub</a>
-</nav>
 <div class="page-inner">
   <h1>Projects ({projects.length})</h1>
   <div class="projects">

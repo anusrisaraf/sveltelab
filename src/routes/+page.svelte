@@ -9,14 +9,6 @@
   <title>Sri Saraf</title>
 </svelte:head>
 
-<nav>
-    <a class="current" href=".">Home</a>
-    <a href="projects">Projects</a>
-    <a href="contact">Contact</a>
-    <a href="resume">Resume</a>
-    <a href="https://github.com/anusrisaraf" target="_blank">GitHub</a>
-</nav>
-
 <div class="home-layout">
   <div class="home-main">
     <h1>Sri Saraf</h1>

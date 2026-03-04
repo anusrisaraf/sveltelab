@@ -3,6 +3,7 @@
 }
 
 html {
+    color-scheme: light dark;
     accent-color: var(--color-accent);
 }
 
@@ -11,32 +12,6 @@ body {
     max-width: none;
     margin-inline: 0;
     padding-inline: 1em;
-}
-
-nav {
-    display: flex;
-    margin-bottom: 0.5em;
-    padding-bottom: 0.5em;
-    border-bottom: 1px solid oklch(80% 0.03 200);
-}
-
-nav a {
-    flex: 1;
-    text-decoration: none;
-    color: inherit;
-    text-align: center;
-    padding: 0.5em;
-}
-
-nav a.current {
-    color: var(--color-accent);
-    border-bottom: 0.4em solid var(--color-accent);
-    padding-bottom: 0.1em;
-}
-
-nav a:hover {
-    border-bottom: 0.4em solid var(--color-accent);
-    padding-bottom: 0.1em;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -66,7 +41,7 @@ img {
 
 .home-reading {
     flex: 1;
-    background: #e0e0e0;
+    background: color-mix(in oklch, canvas, white 15%);
     padding: 1rem;
 }
 
@@ -111,6 +86,11 @@ form button {
     font: inherit;
     box-sizing: border-box;
     width: 100%;
+}
+
+select {
+    font: inherit;
+    box-sizing: border-box;
 }
 
 .projects {

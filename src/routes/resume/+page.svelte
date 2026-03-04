@@ -2,14 +2,6 @@
   <title>Resume — Sri Saraf</title>
 </svelte:head>
 
-<nav>
-    <a href="..">Home</a>
-    <a href="../projects">Projects</a>
-    <a href="../contact">Contact</a>
-    <a class="current" href="resume">Resume</a>
-    <a href="https://github.com/anusrisaraf" target="_blank">GitHub</a>
-</nav>
-
 <div class="page-inner">
   <section id="resume">
     <h2>Resume</h2>
