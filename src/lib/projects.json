@@ -1,20 +1,66 @@
 [
   {
-    "title": "A2: Exploratory Data Analysis",
-    "image": "images/mt.png",
-    "description": "Assignment 2: exploratory data analysis of corporate landlords, evictions, and housing equity in Boston.",
-    "url": "a2"
+    "title": "MIT Pokerbots",
+    "year": 2023,
+    "image": "images/pokerbots.png",
+    "description": "President of MIT Pokerbots, a class and competition where students develop AI poker bots.",
+    "story": "Leading MIT Pokerbots has been a crash course in both technical depth and logistics. I balance designing the curriculum, mentoring teams as they build poker AIs, and running a large-scale competition. It’s where my interests in game theory, machine learning, and teaching all intersect."
   },
   {
-    "title": "A3: Visualization Critique & Redesign",
-    "image": "images/mt.png",
-    "description": "Assignment 3: critique, sketches, final visualization, and writeup.",
-    "url": "a3"
+    "title": "MIT Battlecode Infrastructure",
+    "year": 2023,
+    "image": "images/battlecode.png",
+    "description": "Infrastructure team member for the MIT Battlecode programming competition.",
+    "story": "On Battlecode’s infrastructure team, I helped maintain the platform that thousands of students use to program strategy-game bots. Keeping the engine stable under load and shipping yearly game updates taught me a lot about reliability, tooling, and the user experience of developers."
   },
   {
-    "title": "Lorem Ipsum Project",
-    "image": "images/mt.png",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eget justo eget urna placerat tincidunt."
+    "title": "Lawrence Livermore National Laboratory",
+    "year": 2023,
+    "image": "images/lab.png",
+    "description": "Full-stack development intern for the National Ignition Facility at LLNL.",
+    "story": "At LLNL’s National Ignition Facility I built internal tools for scientists, from responsive UIs to data dashboards. Working with real experimental data and constraints made me appreciate how much good engineering can unblock research and make massive facilities feel more usable day to day."
+  },
+  {
+    "title": "Photo Evolution: Conway's Game of Life",
+    "year": 2025,
+    "image": "images/conway.png",
+    "description": "Interactive Conway’s Game of Life with photo-based initialization.",
+    "story": "Photo Evolution started as a playful extension of Conway’s Game of Life: initializing the grid from photos and watching patterns emerge. It pushed me to think about how simple rules can transform familiar images and how interaction design can draw people into mathematical systems."
+  },
+  {
+    "title": "Visynth",
+    "year": 2025,
+    "image": "images/visynth.png",
+    "description": "Web app that generates real-time visuals driven by audio analysis.",
+    "story": "Visynth connects my interests in audio, signal processing, and visualization. I built a pipeline that analyzes incoming audio and maps features like rhythm and timbre to dynamic visuals. It’s been a playground for experimenting with how sound can drive responsive visual storytelling."
+  },
+  {
+    "title": "RiceTeaCatPanda CTF",
+    "year": 2020,
+    "image": "images/riceteacatpanda.png",
+    "description": "Organized and built RiceTeaCatPanda and HouseplantCTF cybersecurity competitions.",
+    "story": "With RiceTeaCatPanda and HouseplantCTF I helped design and run large online CTF competitions for thousands of players. Building challenges and infrastructure for a global audience taught me how to think like both an attacker and a defender—and how community events can make security feel welcoming."
+  },
+  {
+    "title": "Music Genre Classification with Wavelet-Matrix Hybrid Features",
+    "year": 2025,
+    "image": "images/wavelet.png",
+    "description": "Research project combining MFCCs and wavelet transforms for music genre classification.",
+    "story": "In this project I constructed a hybrid feature set that blends MFCCs with wavelet transforms to improve genre classification. The work showed how richer signal representations can boost low-capacity models, and it deepened my understanding of how mathematical transforms shape model behavior."
+  },
+  {
+    "title": "Enhancing Robustness in Sentiment Analysis",
+    "year": 2024,
+    "image": "images/sentiment.png",
+    "description": "Research on data augmentation for robust transformer-based sentiment models.",
+    "story": "Here I explored how adding informal and colloquial variants to training data can make sentiment models more robust. Working with BERT-style transformers and noisy social media text highlighted the gap between benchmark performance and what real users actually write."
+  },
+  {
+    "title": "Small Transformers for Visually Indicated Sounds",
+    "year": 2024,
+    "image": "images/transformers.png",
+    "description": "Research on compact transformer models for video-to-audio generation.",
+    "story": "This project investigated small transformer architectures for generating audio from video. I focused on keeping models efficient enough for single-GPU inference while still capturing the link between visual motion and plausible sound, which was a fun blend of ML, perception, and systems constraints."
   }
 ]
 

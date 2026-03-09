@@ -39,6 +39,43 @@ img {
     flex: 2;
 }
 
+.github-stats {
+    margin-top: 1.5rem;
+    padding: 1rem 1.5rem;
+    border-radius: 0.75rem;
+    background: color-mix(in oklch, canvas, white 10%);
+    max-width: 40rem;
+    box-shadow: 0 8px 20px oklch(0% 0 0 / 0.15);
+}
+
+.github-stats h2 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+}
+
+.github-stats dl {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: 2rem;
+    row-gap: 0.25rem;
+}
+
+.github-stats dt {
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: oklch(70% 0.05 250);
+    grid-row: 1;
+}
+
+.github-stats dd {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 600;
+    grid-row: 2;
+}
+
 .home-reading {
     flex: 1;
     background: color-mix(in oklch, canvas, white 15%);
@@ -121,4 +158,22 @@ select {
     max-width: 1100px;
     margin: 0 auto;
     padding-inline: 1em;
+}
+
+.outro {
+    margin-bottom: 2rem;
+}
+
+.page-inner > h1 {
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.page-inner > p {
+    max-width: 60ch;
+    margin-bottom: 1.5rem;
+}
+
+.page-inner .projects {
+    margin-top: 2rem;
 }
