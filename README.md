@@ -1,38 +1,51 @@
-# create-svelte
+# Portfolio (Vis & Society Labs 4–6)
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+SvelteKit site with shared layout, dark mode, GitHub stats, project scrollytelling, and D3 bar charts.
 
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
+## Run locally
 
 ```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
+npm install
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
 
-## Building
+Open [http://localhost:5173](http://localhost:5173).
 
-To create a production version of your app:
+## Meta page (lines of code chart)
+
+The Meta page reads `static/loc.csv`, which is **not** in the repo (it’s in `.gitignore`). Generate it locally when you need it:
+
+```bash
+npx elocuent -d static,src -o static/loc.csv
+```
+
+On GitHub Actions, `loc.csv` is generated automatically before each build (see `.github/workflows/deploy.yml`), so the deployed Meta page works without committing the file.
+
+## Build & deploy
 
 ```bash
 npm run build
+npm run preview   # optional: preview production build
 ```
 
-You can preview the production build with `npm run preview`.
+Deploys to GitHub Pages via the workflow in `.github/workflows/deploy.yml` (push to `main`).
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+## Project structure
+
+| Path | Purpose |
+|------|--------|
+| `src/routes/+layout.svelte` | Nav, theme switcher, layout CSS |
+| `src/routes/+page.svelte` | Home: bio, GitHub stats, reading list, latest projects |
+| `src/routes/projects/+page.svelte` | Projects: bar chart (per year), scrollytelling, project grid |
+| `src/routes/meta/+page.svelte` | Meta: horizontal bar chart (LOC by language from `loc.csv`) |
+| `src/lib/Project.svelte` | Project card (title, year, image, description) |
+| `src/lib/ProjectNarrative.svelte` | Scrollytelling narrative + sticky project viz |
+| `src/lib/Bar.svelte` | Vertical D3 bar chart (projects per year) |
+| `src/lib/BarHorizontal.svelte` | Horizontal D3 bar chart (LOC by language) |
+| `src/lib/projects.json` | Project data (title, year, image, description, story, url) |
+| `static/style.css` | Global styles |
+
+## Files you can delete (optional)
+
+- **`static/assignments/report.css`** — Remove if you don’t use it (e.g. for assignment writeups).
+- **`src/routes/a2/+page.svelte`** and **`src/routes/a3/+page.svelte`** — Remove if you no longer need the assignment iframe pages; if you keep them, ensure the layout nav only links to pages you want (nav is in `+layout.svelte`).

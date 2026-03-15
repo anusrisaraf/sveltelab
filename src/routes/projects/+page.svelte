@@ -2,22 +2,31 @@
   import projects from "$lib/projects.json";
   import Project from "$lib/Project.svelte";
   import ProjectNarrative from "$lib/ProjectNarrative.svelte";
+  import Bar from "$lib/Bar.svelte";
+  import * as d3 from "d3";
 
   const projectsForPage = projects.map((p) => ({
     ...p,
     image: "../" + p.image
   }));
 
-  let years = projects.map((proj) => proj.year);
-  let range = Math.max(...years) - Math.min(...years);
+  const years = projects.map((p) => p.year);
+  const range = Math.max(...years) - Math.min(...years);
+
+  $: barData = d3
+    .rollups(projects, (v) => v.length, (d) => d.year)
+    .map(([year, count]) => ({ label: String(year), value: count }));
 </script>
 
 <svelte:head>
   <title>Projects — Sri Saraf</title>
 </svelte:head>
+
 <div class="page-inner">
   <h1>{projects.length} Projects over {range} Years</h1>
   <p>Scroll down to see a timeline of my projects and how they have contributed to my growth.</p>
+
+  <Bar data={barData} />
 
   <ProjectNarrative />
 

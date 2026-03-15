@@ -137,7 +137,7 @@ select {
 }
 
 .projects article {
-    grid-row: span 3;
+    grid-row: span 4;
     display: grid;
     grid-template-rows: subgrid;
 }

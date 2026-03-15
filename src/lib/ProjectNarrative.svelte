@@ -9,7 +9,7 @@
     image: "../" + p.image
   }));
 
-  let sorted_projects = projectsWithImages.sort((a, b) => a.year - b.year);
+  const sorted_projects = [...projectsWithImages].sort((a, b) => a.year - b.year);
   let progressPerProject = 100 / sorted_projects.length;
 
   $: activeProjectIdx = Math.min(

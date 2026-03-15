@@ -10,19 +10,28 @@
       {data.title}
     {/if}
   </h2>
+  {#if data.year}
+    <p class="project-year">{data.year}</p>
+  {/if}
   <img src={data.image} alt="" />
   <p>{data.description}</p>
 </article>
 
 <style>
   article {
-    grid-row: span 3;
+    grid-row: span 4;
     display: grid;
     grid-template-rows: subgrid;
   }
 
   h2 {
     margin: 0;
+  }
+
+  .project-year {
+    margin: 0.15rem 0 0.35rem;
+    font-size: 0.9rem;
+    color: oklch(60% 0.05 250);
   }
 </style>
 
