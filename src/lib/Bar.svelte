@@ -3,8 +3,8 @@
 
   export let data = [];
 
-  let width = 400;
-  let height = 300;
+  let width = 420;
+  let height = 260;
 
   let margin = { top: 40, right: 150, bottom: 80, left: 60 };
   let innerWidth = width - margin.left - margin.right;
@@ -15,7 +15,12 @@
 
   $: xScale = d3
     .scaleBand()
-    .domain(data.map((d) => d.label))
+    .domain(
+      data
+        .slice()
+        .sort((a, b) => Number(a.label) - Number(b.label))
+        .map((d) => d.label)
+    )
     .range([0, innerWidth])
     .padding(0.2);
 
@@ -28,10 +33,10 @@
     .scaleOrdinal(d3.schemeTableau10)
     .domain(data.map((d) => d.label));
 
-  $: maxValue = d3.max(data, (d) => d.value) ?? 0;
-  $: maxBars = data.filter((d) => d.value === maxValue);
-  $: labelX = margin.left + innerWidth - 40;
-  $: labelY = margin.top + innerHeight * 0.35;
+  // single bar with the maximum value (for annotation)
+  $: maxBar = d3.greatest(data, (d) => d.value);
+  $: labelX = margin.left + innerWidth * 0.7;
+  $: labelY = margin.top + innerHeight * 0.4;
 
   $: if (xAxis && yAxis) {
     d3.select(xAxis).call(d3.axisBottom(xScale));
@@ -91,27 +96,28 @@
         Number of Projects
       </text>
 
-      {#if maxBars.length}
-        {#each maxBars as bar}
-          <rect
-            x={xScale(bar.label)}
-            y={yScale(bar.value)}
-            width={xScale.bandwidth()}
-            height={innerHeight - yScale(bar.value)}
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          />
-          <line
-            x1={xScale(bar.label) + xScale.bandwidth()}
-            y1={yScale(bar.value) +
-              (innerHeight - yScale(bar.value)) / 2}
-            x2={labelX}
-            y2={labelY}
-            stroke="currentColor"
-            stroke-width="1"
-          />
-        {/each}
+      {#if maxBar}
+        <!-- outline tallest bar -->
+        <rect
+          x={xScale(maxBar.label)}
+          y={yScale(maxBar.value)}
+          width={xScale.bandwidth()}
+          height={innerHeight - yScale(maxBar.value)}
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        />
+        <!-- leader line -->
+        <line
+          x1={xScale(maxBar.label) + xScale.bandwidth()}
+          y1={yScale(maxBar.value) +
+            (innerHeight - yScale(maxBar.value)) / 2}
+          x2={labelX}
+          y2={labelY}
+          stroke="currentColor"
+          stroke-width="1"
+        />
+        <!-- annotation label -->
         <text
           x={labelX + 5}
           y={labelY}
@@ -119,7 +125,7 @@
           dominant-baseline="middle"
           class="annotation"
         >
-          Year(s) with most projects
+          Year with most projects
         </text>
       {/if}
     </g>
@@ -146,7 +152,8 @@
     display: flex;
     gap: 1.5rem;
     align-items: flex-start;
-    margin-bottom: 2rem;
+    margin: 1.5rem auto 2rem;
+    max-width: 640px;
   }
 
   .legend {
@@ -173,6 +180,12 @@
     align-items: center;
   }
 
+  .legend em {
+    font-style: normal;
+    opacity: 0.8;
+    margin-left: 0.25rem;
+  }
+
   .chart-title {
     font-size: 1rem;
     font-weight: 600;
@@ -185,7 +198,7 @@
   }
 
   .annotation {
-    font-size: 0.7rem;
+    font-size: 0.4rem;
     font-style: italic;
     fill: currentColor;
   }

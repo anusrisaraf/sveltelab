@@ -1,12 +1,13 @@
 <script>
   import Scrolly from "svelte-scrolly";
+  import { base } from "$app/paths";
   import projects from "$lib/projects.json";
 
   let scrollyProgress = 0;
 
   const projectsWithImages = projects.map((p) => ({
     ...p,
-    image: "../" + p.image
+    image: base + "/" + p.image
   }));
 
   const sorted_projects = [...projectsWithImages].sort((a, b) => a.year - b.year);

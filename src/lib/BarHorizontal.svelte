@@ -3,8 +3,8 @@
 
   export let data = [];
 
-  let width = 480;
-  let height = 320;
+  let width = 400;
+  let height = 260;
 
   let margin = { top: 40, right: 40, bottom: 60, left: 120 };
   let innerWidth = width - margin.left - margin.right;
@@ -148,7 +148,8 @@
     display: flex;
     gap: 1.5rem;
     align-items: flex-start;
-    margin-block: 2rem;
+    margin: 1.5rem auto 2rem;
+    max-width: 720px;
   }
 
   .legend {

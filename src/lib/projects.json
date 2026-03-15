@@ -29,7 +29,7 @@
   },
   {
     "title": "Visynth",
-    "year": 2025,
+    "year": 2026,
     "image": "images/visynth.png",
     "description": "Web app that generates real-time visuals driven by audio analysis.",
     "story": "Visynth connects my interests in audio, signal processing, and visualization. I built a pipeline that analyzes incoming audio and maps features like rhythm and timbre to dynamic visuals. It’s been a playground for experimenting with how sound can drive responsive visual storytelling."

@@ -5,10 +5,7 @@
   import Bar from "$lib/Bar.svelte";
   import * as d3 from "d3";
 
-  const projectsForPage = projects.map((p) => ({
-    ...p,
-    image: "../" + p.image
-  }));
+  const projectsForPage = projects.map((p) => ({ ...p }));
 
   const years = projects.map((p) => p.year);
   const range = Math.max(...years) - Math.min(...years);
