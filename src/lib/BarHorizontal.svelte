@@ -2,13 +2,14 @@
   import * as d3 from "d3";
 
   export let data = [];
+  export let title = "Lines of code by language";
 
-  let width = 400;
-  let height = 260;
+  let width = 520;
+  let height = 180;
 
-  let margin = { top: 40, right: 40, bottom: 60, left: 120 };
-  let innerWidth = width - margin.left - margin.right;
-  let innerHeight = height - margin.top - margin.bottom;
+  let margin = { top: 28, right: 100, bottom: 44, left: 96 };
+  $: innerWidth = width - margin.left - margin.right;
+  $: innerHeight = height - margin.top - margin.bottom;
 
   let xAxis;
   let yAxis;
@@ -22,21 +23,24 @@
     .scaleBand()
     .domain(data.map((d) => d.label))
     .range([0, innerHeight])
-    .padding(0.2);
+    .padding(0.3);
 
   $: colorScale = d3
     .scaleOrdinal(d3.schemeTableau10)
     .domain(data.map((d) => d.label));
 
   $: maxValue = d3.max(data, (d) => d.value) ?? 0;
-  $: maxBars = data.filter((d) => d.value === maxValue);
+  $: maxBars = data.filter((d) => d.value === maxValue && maxValue > 0);
   $: mainBar = maxBars[0];
+
+  /** At most 10 ticks; fewer when max bar height is smaller (whole-number ticks). */
+  $: tickCount = Math.min(Math.max(maxValue, 1), 10);
 
   $: if (xAxis && yAxis) {
     d3.select(xAxis).call(
       d3
         .axisBottom(xScale)
-        .ticks(5)
+        .ticks(tickCount)
         .tickFormat((d) => (Number.isInteger(d) ? d : ""))
     );
     d3.select(yAxis).call(d3.axisLeft(yScale));
@@ -47,11 +51,11 @@
   <svg viewBox={`0 0 ${width} ${height}`}>
     <text
       x={margin.left + innerWidth / 2}
-      y={margin.top / 2}
+      y={margin.top / 2 + 4}
       text-anchor="middle"
       class="chart-title"
     >
-      Lines of Code by Language
+      {title}
     </text>
 
     <g
@@ -73,7 +77,7 @@
 
       <text
         x={innerWidth / 2}
-        y={innerHeight + margin.bottom - 15}
+        y={innerHeight + margin.bottom - 12}
         text-anchor="middle"
         class="axis-label"
       >
@@ -82,7 +86,7 @@
 
       <text
         x={-(innerHeight / 2)}
-        y={-margin.left + 30}
+        y={-margin.left + 22}
         text-anchor="middle"
         transform="rotate(-90)"
         class="axis-label"
@@ -90,7 +94,7 @@
         Language
       </text>
 
-      {#if maxBars.length}
+      {#if maxBars.length && mainBar}
         {#each maxBars as bar}
           <rect
             x={0}
@@ -102,27 +106,17 @@
             stroke-width="2"
           />
         {/each}
-        {#if mainBar}
-          {#key mainBar.label}
-            <line
-              x1={xScale(mainBar.value)}
-              y1={yScale(mainBar.label) + yScale.bandwidth() / 2}
-              x2={xScale(mainBar.value) + 40}
-              y2={yScale(mainBar.label) + yScale.bandwidth() / 2}
-              stroke="currentColor"
-              stroke-width="1"
-            />
-            <text
-              x={xScale(mainBar.value) + 45}
-              y={yScale(mainBar.label) + yScale.bandwidth() / 2}
-              text-anchor="start"
-              dominant-baseline="middle"
-              class="annotation"
-            >
-              Most LOC
-            </text>
-          {/key}
-        {/if}
+        {#key mainBar.label}
+          <text
+            x={xScale(mainBar.value) + 8}
+            y={yScale(mainBar.label) + yScale.bandwidth() / 2}
+            text-anchor="start"
+            dominant-baseline="middle"
+            class="annotation"
+          >
+            Most LOC
+          </text>
+        {/key}
       {/if}
     </g>
   </svg>
@@ -146,10 +140,10 @@
 
   .chart-container {
     display: flex;
-    gap: 1.5rem;
+    gap: 1rem;
     align-items: flex-start;
-    margin: 1.5rem auto 2rem;
-    max-width: 720px;
+    margin: 0.5rem auto 1.5rem;
+    max-width: min(960px, 100%);
   }
 
   .legend {
@@ -158,16 +152,17 @@
     margin: 0;
     display: grid;
     grid-template-columns: 1fr;
-    gap: 0.5rem;
-    font-size: 0.85rem;
+    gap: 0.35rem;
+    font-size: 0.72rem;
+    min-width: 7rem;
   }
 
   .swatch {
-    width: 0.9rem;
-    height: 0.9rem;
+    width: 0.65rem;
+    height: 0.65rem;
     border-radius: 2px;
     background-color: var(--color);
-    margin-right: 0.5rem;
+    margin-right: 0.4rem;
     flex-shrink: 0;
   }
 
@@ -177,19 +172,19 @@
   }
 
   .chart-title {
-    font-size: 1rem;
+    font-size: 0.82rem;
     font-weight: 600;
+    fill: currentColor;
   }
 
   .axis-label {
-    font-size: 0.8rem;
+    font-size: 0.68rem;
     fill: currentColor;
   }
 
   .annotation {
-    font-size: 0.7rem;
+    font-size: 0.6rem;
     font-style: italic;
-     fill: currentColor;
+    fill: currentColor;
   }
 </style>
-
