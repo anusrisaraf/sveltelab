@@ -206,6 +206,11 @@
     fill-opacity: 0.95;
   }
 
+  circle.selected:hover {
+    fill: #fbbf24;
+    fill-opacity: 1;
+  }
+
   dl.info {
     display: grid;
     grid-template-columns: auto 1fr;
