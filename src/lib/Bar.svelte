@@ -180,12 +180,6 @@
     align-items: center;
   }
 
-  .legend em {
-    font-style: normal;
-    opacity: 0.8;
-    margin-left: 0.25rem;
-  }
-
   .chart-title {
     font-size: 1rem;
     font-weight: 600;

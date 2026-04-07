@@ -7,6 +7,8 @@
 
   /** Selected commit objects (same references as in `commits`) */
   export let clickedCommits = [];
+  export let brushedCommits = [];
+  export let selectedCommits = [];
 
   const width = 900;
   const height = 380;
@@ -53,6 +55,9 @@
   let yAxis;
   let yAxisGridlines;
 
+  let svgEl;
+  let brushSelection = null;
+
   let hoveredIndex = -1;
   $: hoveredCommit = sortedCommits[hoveredIndex] ?? {};
 
@@ -60,6 +65,8 @@
   let tooltipPosition = { x: 0, y: 0 };
 
   $: {
+    selectedCommits = Array.from(new Set([...clickedCommits, ...brushedCommits]));
+
     if (xAxis) {
       d3.select(xAxis).call(d3.axisBottom(xScale));
     }
@@ -80,8 +87,44 @@
     }
   }
 
-  function isSelected(commit) {
-    return clickedCommits.includes(commit);
+  function isCommitBrushed(commit) {
+    if (!brushSelection) return false;
+    const [[x0, y0], [x1, y1]] = brushSelection;
+    const cx = xScale(commit.datetime);
+    const cy = yScale(commit.hourFrac);
+    return x0 <= cx && cx <= x1 && y0 <= cy && cy <= y1;
+  }
+
+  function brushed(evt) {
+    brushSelection = evt.selection;
+  }
+
+  $: brushedCommits = brushSelection ? sortedCommits.filter(isCommitBrushed) : [];
+
+  $: {
+    if (svgEl) {
+      d3.select(svgEl).call(
+        d3
+          .brush()
+          .extent([
+            [usableArea.left, usableArea.top],
+            [usableArea.right, usableArea.bottom]
+          ])
+          .on("start brush end", brushed)
+      );
+
+      // Keep dots/tooltips interactive above the brush overlay.
+      d3.select(svgEl).selectAll(".dots, .overlay ~ *").raise();
+    }
+  }
+
+  function toggleCommitAtIndex(index) {
+    const commit = sortedCommits[index];
+    if (!clickedCommits.includes(commit)) {
+      clickedCommits = [...clickedCommits, commit];
+    } else {
+      clickedCommits = clickedCommits.filter((c) => c !== commit);
+    }
   }
 
   async function dotInteraction(index, evt) {
@@ -97,12 +140,7 @@
     } else if (evt.type === "mouseleave") {
       hoveredIndex = -1;
     } else if (evt.type === "click") {
-      const commit = sortedCommits[index];
-      if (!clickedCommits.includes(commit)) {
-        clickedCommits = [...clickedCommits, commit];
-      } else {
-        clickedCommits = clickedCommits.filter((c) => c !== commit);
-      }
+      toggleCommitAtIndex(index);
     }
   }
 </script>
@@ -113,6 +151,7 @@
     viewBox="0 0 {width} {height}"
     role="img"
     aria-label="Commits by date and time of day"
+    bind:this={svgEl}
   >
     <g
       class="gridlines"
@@ -128,13 +167,23 @@
     <g class="dots">
       {#each sortedCommits as commit, index}
         <circle
+          role="button"
+          tabindex="0"
+          aria-pressed={selectedCommits.includes(commit)}
+          aria-label="Commit {commit.id}, press Enter or Space to toggle selection"
           cx={xScale(commit.datetime)}
           cy={yScale(commit.hourFrac)}
           r={rScale(commit.totalLines)}
-          class:selected={clickedCommits.includes(commit)}
+          class:selected={selectedCommits.includes(commit)}
           on:mouseenter={(e) => dotInteraction(index, e)}
           on:mouseleave={(e) => dotInteraction(index, e)}
           on:click={(e) => dotInteraction(index, e)}
+          on:keydown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              toggleCommitAtIndex(index);
+            }
+          }}
         />
       {/each}
     </g>
@@ -188,6 +237,21 @@
 
   .gridlines {
     stroke-opacity: 0.2;
+  }
+
+  @keyframes marching-ants {
+    to {
+      stroke-dashoffset: -8; /* 5 + 3 */
+    }
+  }
+
+  svg :global(.selection) {
+    fill: var(--color-accent, #c45c26);
+    fill-opacity: 0.1;
+    stroke: currentColor;
+    stroke-opacity: 0.7;
+    stroke-dasharray: 5 3;
+    animation: marching-ants 2s linear infinite;
   }
 
   circle {

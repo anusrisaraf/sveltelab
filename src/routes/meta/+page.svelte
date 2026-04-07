@@ -4,6 +4,7 @@
   import * as d3 from "d3";
   import BarHorizontal from "$lib/BarHorizontal.svelte";
   import CommitScatter from "$lib/CommitScatter.svelte";
+  import LineChart from "$lib/LineChart.svelte";
 
   /** Set to your repo’s commit URL prefix (Lab 7 handout uses vis-society/lab-7). */
   const COMMIT_URL_BASE = "https://github.com/vis-society/lab-7/commit/";
@@ -11,6 +12,9 @@
   let locData = [];
   let commits = [];
   let clickedCommits = [];
+  let brushedCommits = [];
+  let selectedCommits = [];
+  let linesByDate = [];
   let loaded = false;
 
   onMount(async () => {
@@ -54,8 +58,8 @@
       ? []
       : (() => {
           const lines =
-            clickedCommits.length > 0
-              ? clickedCommits.flatMap((c) => c.lines)
+            selectedCommits.length > 0
+              ? selectedCommits.flatMap((c) => c.lines)
               : locData;
           const counts = d3.rollup(
             lines,
@@ -69,11 +73,36 @@
         })();
 
   $: barChartTitle =
-    clickedCommits.length === 0
+    selectedCommits.length === 0
       ? "Website language breakdown (all lines)"
-      : `Language breakdown (${clickedCommits.length} selected commit${
-          clickedCommits.length === 1 ? "" : "s"
+      : `Language breakdown (${selectedCommits.length} selected commit${
+          selectedCommits.length === 1 ? "" : "s"
         })`;
+
+  $: {
+    // Lines edited by date (for Lab 8 line chart)
+    if (locData.length === 0) {
+      linesByDate = [];
+    } else {
+      const rolled = d3
+        .rollups(
+          locData,
+          (v) => v.length,
+          (d) => d3.timeDay.floor(d.datetime)
+        )
+        .map(([date, count]) => ({ date, count }))
+        .sort((a, b) => a.date - b.date);
+
+      const [minD, maxD] = d3.extent(rolled, (d) => d.date);
+      const allDays =
+        minD && maxD ? d3.timeDays(minD, d3.timeDay.offset(maxD, 1)) : [];
+
+      linesByDate = allDays.map((date) => ({
+        date,
+        count: rolled.find((d) => +d.date === +date)?.count ?? 0
+      }));
+    }
+  }
 </script>
 
 <svelte:head>
@@ -94,16 +123,26 @@
     <section class="meta-section">
       <h2>Commits by date &amp; time</h2>
       <p class="section-lead">
-        Circle size encodes lines edited (area ∝ lines). Click to select
-        commits; selected points stay highlighted and filter the bar chart
-        below.
+        Circle size encodes lines edited (area ∝ lines). Click or brush to
+        select commits; selected points stay highlighted and filter the bar
+        chart below.
       </p>
-      <CommitScatter bind:clickedCommits {commits} />
+      <CommitScatter
+        bind:clickedCommits
+        bind:brushedCommits
+        bind:selectedCommits
+        {commits}
+      />
     </section>
 
     <section class="meta-section">
       <h2>Lines of code by language</h2>
       <BarHorizontal data={barData} title={barChartTitle} />
+    </section>
+
+    <section class="meta-section">
+      <h2>Lines edited over time</h2>
+      <LineChart data={linesByDate} />
     </section>
   {/if}
 </div>
